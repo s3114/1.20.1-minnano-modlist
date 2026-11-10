@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+      content="Mod初心者向けに、Modpackに含まれるModの遊び方や特徴を紹介するガイド。">
+    <meta name="theme-color" content="#d0d6dc">
+    <title>MOD FIELD GUIDE — Modpackの遊び方ガイド</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet">
+    <style>
+/* Hallmark · shape: index-first catalogue · genre: editorial · theme: Almanac (manual deal) · signature: searchable mod index · posture: restrained · v2.0.0 */
+:root {
+  color-scheme: light;
+  --paper: oklch(84% .012 245);
+  --paper-2: oklch(81% .012 245);
+  --paper-3: oklch(77% .012 245);
+  --sheet: oklch(93.5% .008 245);
+  --ink: oklch(16% .020 245);
+  --ink-2: oklch(24% .018 245);
+  --muted: oklch(38% .016 245);
+  --rule: oklch(73% .013 240);
+  --rule-strong: oklch(32% .018 240);
+  --accent: oklch(45% .180 350);
+  --accent-dark: oklch(37% .160 350);
+  --accent-ink: oklch(97% .006 245);
+  --focus: oklch(46% .190 350);
+  --font-display: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Newsreader", ui-serif, Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --container: 1440px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --radius: 2px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body { margin: 0; overflow-x: clip; background: var(--paper); color: var(--ink-2); font: 400 17px/1.58 var(--font-body); }
+a { color: var(--ink); text-decoration-color: var(--accent); text-underline-offset: .18em; }
+a:hover { text-decoration-thickness: 2px; }
+button, input, select { font: inherit; }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.container { width: min(var(--container), 100%); margin-inline: auto; padding-inline: var(--gutter); }
+.catalogue { padding:76px 0 100px; }
+.filter-panel { background:var(--sheet); border-top:2px solid var(--ink); padding:24px; margin-bottom:26px; }
+.filter-top { display:grid; grid-template-columns:minmax(200px, 1.2fr) minmax(160px, 1fr) minmax(160px, 1fr) auto; gap:14px; align-items:end; }
+.field label { display:block; margin-bottom:7px; color:var(--muted); font-size:14px; }
+.field input,.field select { width:100%; min-height:48px; padding:0 13px; border:1px solid var(--muted); border-radius:0; background:var(--sheet); color:var(--ink); }
+.field input::placeholder { color:var(--muted); opacity:.8; }
+.filter-meta { display:flex; justify-content:space-between; align-items:center; gap:18px; margin-top:20px; padding-top:16px; border-top:1px solid var(--rule); }
+.result-count { color:var(--ink); font:500 14px var(--font-display); }
+.clear-btn { border:0; padding:6px 0; color:var(--ink); background:transparent; text-decoration:underline; text-decoration-color:var(--accent); text-underline-offset:4px; cursor:pointer; font:500 14px var(--font-display); }
+.mod-list { border-top:2px solid var(--rule-strong); }
+.mod-row { display:grid; grid-template-columns: minmax(0, 1fr) auto; gap:22px; padding:24px 8px 22px; border-bottom:1px solid var(--rule); }
+.mod-main { min-width:0; }
+.mod-thumb { align-self:start; display:grid; place-items:center; width:96px; height:96px; overflow:hidden; border:1px solid var(--rule-strong); background:var(--paper-2); color:var(--muted); font:600 32px var(--font-display); user-select:none; }
+.mod-thumb img { display:block; width:100%; height:100%; object-fit:cover; }
+.mod-topline { display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; margin-bottom:8px; }
+.mod-index { color:var(--muted); font:400 12px var(--font-mono); }
+.mod-tag { display:inline-block; color:var(--accent-dark); font-size:13px; }
+.mod-row h3 { margin:0; font-size:25px; letter-spacing:-.025em; }
+.mod-row .summary { max-width:76ch; margin:9px 0 0; font-size:16px; }
+.mod-row details { margin-top:14px; }
+.mod-row summary { display:inline-flex; align-items:center; gap:8px; color:var(--ink); cursor:pointer; font:600 14px var(--font-display); text-decoration:underline; text-decoration-color:var(--accent); text-underline-offset:4px; }
+.mod-detail { max-width:78ch; margin-top:14px; padding:16px 18px; background:var(--paper-2); border-left:2px solid var(--rule-strong); }
+.mod-detail p { margin:0 0 10px; }
+.mod-detail p:last-child { margin-bottom:0; }
+.mod-detail strong { color:var(--ink); font-family:var(--font-display); font-size:14px; }
+.mod-link { align-self:start; color:var(--muted); text-decoration:none; font:500 13px var(--font-display); white-space:nowrap; }
+.empty { padding:48px 10px; border-bottom:1px solid var(--rule); color:var(--muted); }
+[hidden] { display:none !important; }
+@media (max-width:850px) {
+  .mod-thumb { width:64px; height:64px; font-size:22px; }
+  .filter-top { grid-template-columns:1fr; }
+  .filter-meta { align-items:flex-start; }
+}
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  *,*::before,*::after { transition-duration:.01ms !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; }
+}
+</style>
+  </head>
+  <body>
+    <main>
+      <section class="catalogue" id="catalogue">
+        <div class="container">
+          <div class="filter-panel" aria-label="Mod検索と絞り込み">
+            <div class="filter-top">
+              <div class="field">
+                <label for="search">Modを検索</label>
+                <input id="search" type="search"
+                  placeholder="例：Create、魔法、建築、自動化" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="main-tag-select">メインジャンル</label>
+                <select id="main-tag-select">
+                  <option value>すべてのメインジャンル</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="sub-tag-select">サブジャンル</label>
+                <select id="sub-tag-select" disabled>
+                  <option value>すべてのサブジャンル</option>
+                </select>
+              </div>
+              <button class="btn" id="reset" type="button"
+                style="min-height:48px; padding:0 20px; border:1px solid var(--ink); background:transparent; color:var(--ink); cursor:pointer; font:600 14px var(--font-display);">条件をリセット</button>
+            </div>
+            <div class="filter-meta">
+              <span class="result-count" id="result-count"
+                aria-live="polite">読み込み中</span>
+              <button class="clear-btn" id="clear-search"
+                type="button">検索文字を消す</button>
+            </div>
+          </div>
+
+          <div class="mod-list" id="mod-list" aria-live="polite"></div>
+          <noscript><p>Mod一覧の検索機能を使うにはJavaScriptを有効にしてください。</p></noscript>
+        </div>
+      </section>
+    </main>
+    <script id="mod-data" type="application/json">
+[
+  {
+    "title": "Ars Nouveau",
+    "slug": "ars-nouveau",
+    "tag": "魔法・呪文作成",
+    "heading": "自分で魔法を組み立てて使えるMod。攻撃・回復・移動・採掘など、用途に合わせたオリジナルの呪文を作れる。魔法を使った装置や自動化も楽しめる。",
+    "detail": "【できること】魔法の書で複数の効果（グリフ）を組み合わせ、攻撃・回復・移動・採掘・建築補助などの呪文を作れます。Source（ソース）という魔法エネルギーを集め、装置や魔法生物にも利用します。\n【魅力】決まった魔法を使うだけでなく、用途に合わせて自分で呪文を組み立てられます。戦闘だけでなく、生活や拠点づくりにも活用できます。"
+  },
+  {
+    "title": "Iron's Spells 'n Spellbooks",
+    "slug": "irons-spellbooks",
+    "tag": "魔法・呪文と魔法装備",
+    "heading": "魔法書を集めて、さまざまな呪文を習得・強化するMod。攻撃魔法や防御魔法を使えるほか、魔法使いの敵やボス、魔法装備も追加される。",
+    "detail": "【できること】攻撃・防御・補助などの呪文を魔法書で習得し、強化できます。魔法使い系の敵やボス、探索用の構造物、魔法装備も追加されます。\n【魅力】魔法書や装備を集めるほど戦闘の選択肢が増え、魔法使いとして成長していくRPGのような遊びを楽しめます。"
+  },
+  {
+    "title": "Hex Casting",
+    "slug": "hex-casting",
+    "tag": "魔法・呪文作成",
+    "heading": "図形やパターンを組み合わせて魔法を発動するMod。決められた魔法を使うのではなく、自分で処理を組み立てるような遊び方が特徴。",
+    "detail": "【できること】魔法のパターンを組み合わせ、アイテム操作・移動・攻撃などの処理を構築します。\n【魅力】魔法を選んで使うというより、手順や組み合わせを考えて実行する仕組みです。パズルやプログラミングが好きな人に向いています。"
+  },
+  {
+    "title": "Psi",
+    "slug": "psi",
+    "tag": "魔法・呪文作成",
+    "heading": "プログラムを作るように、自分だけの能力を組み立てるMod。射撃・移動・防御などの効果を設定して、状況に合わせて使える。",
+    "detail": "【できること】CADと呼ばれる装置にプログラムを設定し、射撃・移動・防御などの能力を実行します。条件や数値を組み合わせて、状況に応じた動作を作れます。\n【魅力】魔法というより、自分で能力をプログラミングする感覚です。工夫次第で独自の戦闘・移動手段を作れます。"
+  },
+  {
+    "title": "Botania",
+    "slug": "botania",
+    "tag": "魔法・マナと魔法装置",
+    "heading": "花から「マナ」と呼ばれるエネルギーを生み出し、魔法の道具や装置を作るMod。植物を利用した仕組みづくりや、自動化も楽しめる。",
+    "detail": "【できること】特殊な花からマナと呼ばれるエネルギーを生み出し、装備・便利アイテム・装置・特殊ブロックなどを作ります。花の配置や装置の組み合わせで、資源やアイテムの仕組みも構築できます。\n【魅力】自然や植物をテーマにしながら、装置づくりや自動化にも取り組めます。"
+  },
+  {
+    "title": "Apotheosis",
+    "slug": "apotheosis",
+    "tag": "装備強化・エンチャント",
+    "heading": "エンチャントや装備強化、モンスターとの戦闘を拡張するMod。特殊な能力を持つ装備を集めたり、強敵に挑んだりするハクスラ要素が加わる。",
+    "detail": "【できること】エンチャントの仕組みを拡張し、特殊能力や高い性能を持つ装備を入手できます。強力な敵やボス、スポナー関連の強化要素も追加されます。\n【魅力】敵を倒して強い装備を探すハクスラ的な楽しみがあります。装備厳選やビルドづくりを楽しみたい人向けです。"
+  },
+  {
+    "title": "Artifacts",
+    "slug": "artifacts",
+    "tag": "装備強化・アクセサリー",
+    "heading": "探索中に見つかる特殊なアクセサリーを追加するMod。移動速度や攻撃力などに効果を持つアイテムを装備して、キャラクターを強化できる。",
+    "detail": "【できること】宝箱などから特殊なアクセサリーを探し、装備できます。アイテムによって移動速度・ジャンプ・攻撃・防御・採掘などに関係する効果を得られます。\n【魅力】武器や防具だけでなく、アクセサリーの組み合わせでもキャラクターを強化できます。"
+  },
+  {
+    "title": "Create",
+    "slug": "create",
+    "tag": "工業系・自動化",
+    "heading": "歯車・回転軸・ベルトコンベアなどを組み合わせて、実際に動く機械を作るMod。農作物の収穫やアイテム加工、自動クラフトなどを機械化できる。見た目にもこだわった工場や装置を作れるのが特徴。",
+    "detail": "【できること】水車や風車で回転力を作り、歯車・回転軸・ベルトなどに伝えます。自動クラフト、アイテム搬送、農作物の収穫、加工ラインなどを構築できます。クレーンや機械アーム、動く構造物、列車なども作れます。\n【魅力】GUIの中だけで完結する機械ではなく、実際に動く工場をブロックで組み立てられます。小さな装置から大規模な工場まで発展させられます。"
+  },
+  {
+    "title": "Applied Energistics 2（AE2）",
+    "slug": "applied-energistics-2",
+    "tag": "収納・アイテム管理",
+    "heading": "大量のアイテムをデジタルネットワークで管理するMod。端末からアイテムを検索・取り出したり、登録したレシピを自動クラフトしたりできる。大規模な倉庫や工場の管理に役立つ。",
+    "detail": "【できること】アイテムをストレージセルに保存し、ケーブルでつないだネットワーク全体を端末から検索・管理できます。レシピを登録して、素材がそろったら自動クラフトすることもできます。\n【魅力】大量のチェストを並べる代わりに、拠点のアイテムを一元管理できます。大規模な工場や複雑なクラフトを扱うほど便利です。"
+  },
+  {
+    "title": "Ender IO",
+    "slug": "ender-io",
+    "tag": "工業系・輸送ネットワーク",
+    "heading": "機械による加工や、アイテム・液体・エネルギーの輸送を追加する工業系Mod。導管を使って複数の機械を接続し、コンパクトな工場を作れる。",
+    "detail": "【できること】機械によるアイテム加工や素材生産に加え、コンジット（導管）でアイテム・液体・エネルギーなどを輸送できます。\n【魅力】複数の機械や配管をコンパクトにまとめ、工場を構築しやすい点が特徴です。\n【補足】このModpackに含まれるファイルはEnder IO 6.2.18 betaです。1.20.1版は別バージョンと機能差がある場合があります。"
+  },
+  {
+    "title": "Iron Furnaces",
+    "slug": "iron-furnaces",
+    "tag": "工業系・精錬",
+    "heading": "通常より高性能なかまどを追加するMod。素材を使ってかまどをアップグレードでき、精錬を速く進められる。",
+    "detail": "【できること】通常のかまどより高速なかまどなどを作成できます。素材を集めて、かまどを段階的にアップグレードできます。\n【魅力】鉱石や食料の精錬待ち時間を減らし、素材加工を進めやすくなります。"
+  },
+  {
+    "title": "The Twilight Forest",
+    "slug": "the-twilight-forest",
+    "tag": "冒険・追加ディメンション",
+    "heading": "「黄昏の森」という専用ディメンションを追加する大型冒険Mod。森や迷宮、塔、城などを探索し、ナーガやリッチなどのボスに挑戦できる。ボスを倒しながら新しいエリアを攻略していく。",
+    "detail": "【できること】特別なポータルから黄昏の森へ移動し、森・迷宮・塔・城などを探索します。ナーガ、リッチ、ミノッシュルーム、ヒドラなどのボスに挑戦し、攻略を進めます。\n【魅力】探索・謎解き・ボス攻略を順番に進める、独立した冒険ゲームのような体験ができます。"
+  },
+  {
+    "title": "L_Ender's Cataclysm",
+    "slug": "lc",
+    "tag": "冒険・ボス攻略",
+    "heading": "強力なボスや高難度のダンジョンを追加するMod。ボスごとに異なる攻撃やギミックがあり、装備を整えて挑む本格的な戦闘を楽しめる。",
+    "detail": "【できること】専用のダンジョンや構造物を探索し、強力なボスと戦います。ボスごとに異なる攻撃パターンやギミックに対応し、専用素材や装備を入手できます。\n【魅力】通常のMinecraftの敵とは異なり、事前の準備と戦闘中の立ち回りが重要なボス戦を楽しめます。"
+  },
+  {
+    "title": "Ice and Fire: Dragons",
+    "query": "Ice and Fire Dragons",
+    "tag": "冒険・ドラゴン",
+    "heading": "ドラゴンや神話上の生物を追加する冒険Mod。火や氷を操るドラゴンの巣を探して戦い、素材を集めて専用の武器や防具を作れる。",
+    "detail": "【できること】火や氷などのドラゴンがワールドに登場します。ドラゴンの巣を探して戦い、関連素材や武器・防具を入手できます。ドラゴン以外にも神話・伝説をモチーフにした生物が登場します。\n【魅力】探索中に巨大なドラゴンと遭遇する緊張感や、ドラゴン素材を使った装備づくりが楽しめます。"
+  },
+  {
+    "title": "Grimoire of Gaia 4",
+    "query": "Grimoire of Gaia 4",
+    "tag": "冒険・モンスター追加",
+    "heading": "さまざまな種類のモンスターを追加するMod。見慣れた場所でも新しい敵と遭遇するようになり、探索や戦闘に変化が生まれる。",
+    "detail": "【できること】通常の敵とは異なる外見や能力を持つモンスターが出現します。\n【魅力】夜や洞窟など、見慣れた場所で新しい敵と遭遇する可能性があり、探索や戦闘に変化が生まれます。\n【注意】敵の強さや出現条件はバージョン・設定によって異なります。"
+  },
+  {
+    "title": "L2Hostility",
+    "slug": "l2hostility",
+    "tag": "戦闘、武器・敵の強化",
+    "heading": "敵対Mobとの戦闘を難しくするMod。強化された敵への対策が必要になり、装備や戦い方を工夫する楽しみが増える。",
+    "detail": "【できること】敵対Mobとの戦闘をより危険で歯ごたえのあるものにします。強化された敵への対策や装備構成が重要になります。\n【魅力】強い装備を集めるだけでなく、強敵にどう対応するかを考える楽しみが増えます。"
+  },
+  {
+    "title": "Enhanced AI",
+    "slug": "enhanced-ai",
+    "tag": "戦闘、武器・敵の強化",
+    "heading": "Mobの行動や戦闘時の動きを変更するMod。敵の行動に変化が加わり、戦闘の立ち回りに影響する。",
+    "detail": "【できること】Mobの行動や戦闘時の判断を変更し、単純な接近・攻撃だけではない戦闘にします。\n【魅力】敵の動きが変わることで、戦闘時の立ち回りに変化が生まれます。\n【注意】具体的な挙動は設定や、ほかのMob追加Modとの組み合わせに左右されます。"
+  },
+  {
+    "title": "Timeless and Classics Zero（TaCZ）",
+    "slug": "tacz",
+    "tag": "戦闘、武器・銃撃戦",
+    "heading": "銃器を追加するMod。ピストルやライフルなどを使い、照準・リロードを含む銃撃戦を楽しめる。銃のカスタマイズにも対応している。",
+    "detail": "【できること】ピストルやライフルなどの銃を扱い、照準やリロードを含む射撃アクションを楽しめます。専用作業台で銃を作成・カスタマイズし、アタッチメントなどで性能や使い勝手を調整できます。\n【魅力】MinecraftにFPS/TPSのような銃撃戦を取り入れられます。銃ごとの操作感やカスタマイズを楽しめます。"
+  },
+  {
+    "title": "Tinkers' Construct",
+    "slug": "tconstruct",
+    "tag": "戦闘、武器・道具作成",
+    "heading": "素材のパーツを組み合わせて、自分好みの道具や武器を作るMod。素材によって性能や特性が変わる。溶鉱炉で金属を加工するなど、道具づくりの工程も追加される。",
+    "detail": "【できること】複数の素材パーツを組み合わせてツールや武器を作ります。素材によって性能や特性が変わります。溶鉱炉などで金属を溶かし、鋳造してパーツを作る工程もあります。\n【魅力】既製品を使うだけでなく、素材選びから道具を設計できます。採掘用・戦闘用など、目的に合わせた道具を作れます。"
+  },
+  {
+    "title": "SlashBlade Resharped",
+    "query": "SlashBlade Resharped",
+    "tag": "戦闘、武器・刀アクション",
+    "heading": "刀を使ったアクション要素を追加するMod。通常の剣とは異なる特殊攻撃やコンボを使い、刀を強化しながら戦える。",
+    "detail": "【できること】刀を使った特殊攻撃やコンボなど、通常の剣とは異なる戦闘を楽しめます。刀の強化・派生を通じて武器を育てる要素もあります。\n【魅力】刀アクションやスタイリッシュな戦闘が好きな人に向いています。"
+  },
+  {
+    "title": "ShinColle Kai",
+    "query": "ShinColle Kai",
+    "tag": "冒険・キャラクター追加",
+    "heading": "艦隊これくしょんをモチーフにしたキャラクターや関連要素を追加するMod。具体的な遊び方や入手方法は、ゲーム内の説明を確認してください。",
+    "detail": "【できること】艦娘をモチーフにした存在や関連アイテムを扱うコンテンツが追加されます。戦闘・収集など、通常のMinecraftとは異なる要素が加わります。\n【注意】具体的な入手・育成・戦闘仕様は、このModpackに入っているKai版のゲーム内説明を確認してください。"
+  },
+  {
+    "title": "Oh The Biomes We've Gone",
+    "slug": "oh-the-biomes-weve-gone",
+    "tag": "ワールド・バイオーム",
+    "heading": "ワールドに多彩なバイオームを追加するMod。新しい森林や草原、幻想的な地域などが生成され、見た目や採取できる素材に変化が加わる。",
+    "detail": "【できること】森林・草原・湿地・幻想的な地域など、多数の新しいバイオームが生成されます。バイオーム固有の木・植物・ブロック・素材も利用できます。\n【魅力】新しい景色や建築素材を探す楽しみが増え、探索そのものが新鮮になります。"
+  },
+  {
+    "title": "YUNG's Betterシリーズ",
+    "slug": "yungs-better-dungeons",
+    "tag": "ワールド・構造物",
+    "heading": "バニラのダンジョンや構造物を、より大きく複雑なものに作り直すシリーズ。",
+    "detail": "【できること】バニラの構造物を拡張します。\n・Better Dungeons：地下ダンジョンを拡張し、部屋や探索ルートを増やします。\n・Better Mineshafts：廃坑を大規模で変化に富んだ構造にします。\n・Better Strongholds：要塞を拡張します。\n・Better Desert Temples：砂漠の寺院を拡張します。\n・Better Jungle Temples：ジャングルの寺院を拡張します。\n・Better Ocean Monuments：海底神殿を拡張します。\n・Better Witch Huts：ウィッチの小屋を拡張します。\n・Better Nether Fortresses：ネザー要塞を拡張します。\n・Better End Island：エンドの中央島や周辺構造を拡張します。\n・YUNG's Bridges：ワールドに橋を生成します。\n・YUNG's Extras：構造物や探索に関する追加要素を補います。\n【魅力】見慣れた構造物が新しいダンジョンのようになり、探索や戦利品集めを楽しめます。"
+  },
+  {
+    "title": "Underground Villages",
+    "slug": "underground-village",
+    "tag": "ワールド・構造物",
+    "heading": "地下に村のような構造物を生成するMod。洞窟を探索していると、地下の集落を発見できることがある。",
+    "detail": "【できること】地下空間に村のような構造物が生成されます。地上の村とは異なる場所で建物や住人を見つけられます。\n【魅力】洞窟探索中に思いがけない集落を発見する楽しみがあります。"
+  },
+  {
+    "title": "Serene Seasons",
+    "slug": "serene-seasons",
+    "tag": "ワールド・季節変化",
+    "heading": "ワールドに春・夏・秋・冬の季節変化を追加するMod。季節によって景色が変わり、設定によっては作物の成長にも影響する。",
+    "detail": "【できること】時間の経過に合わせて春・夏・秋・冬へ季節が移り変わり、地域の見た目や環境が変化します。設定によっては作物の成長にも季節が影響します。\n【魅力】ワールドに時間の流れや生活感が生まれ、農業や拠点づくりに季節を取り入れられます。"
+  },
+  {
+    "title": "Yuushya",
+    "slug": "yuushya",
+    "tag": "建築・装飾",
+    "heading": "街づくりや建築に使える装飾ブロックを追加するMod。道路や建物の内装・外装など、細かな街並みを表現できる。",
+    "detail": "【できること】建物の内装・外装、道路、街並みなどに使える装飾パーツを利用できます。\n【魅力】バニラブロックだけでは表現しにくい、現代的な建築や細かな街づくりができます。"
+  },
+  {
+    "title": "Farmer's Delight",
+    "slug": "farmers-delight",
+    "tag": "生活・農業と料理",
+    "heading": "農業と料理を拡張するMod。新しい食材や料理、調理器具が追加される。食材を集めて加工し、さまざまな料理を作れるようになる。",
+    "detail": "【できること】新しい食材・料理・調理器具・農業関連ブロックが追加されます。まな板や調理鍋などで食材を加工し、料理を作れます。農作物を育てて食材を集め、料理の種類を増やせます。\n【魅力】食料が単なる回復アイテムではなく、収穫・加工・調理を楽しむ生活コンテンツになります。"
+  },
+  {
+    "title": "Spice of Life: Classic",
+    "slug": "spice-of-life-classic",
+    "tag": "生活・食事システム",
+    "heading": "食事の種類を意識する仕組みを追加するMod。同じ食べ物ばかりではなく、さまざまな料理を食べる遊び方につながる。",
+    "detail": "【できること】同じ食べ物ばかり食べるのではなく、食事のバリエーションを増やす遊び方を促す仕組みを追加します。\n【魅力】Farmer's Delightなどで料理の種類が増えるほど、さまざまな食べ物を試す意味が出てきます。\n【注意】満腹度・体力などへの具体的な影響は設定に依存します。"
+  },
+  {
+    "title": "Legendary Survival Overhaul",
+    "slug": "legendary-survival-overhaul",
+    "tag": "生活・サバイバル要素",
+    "heading": "体温や水分などのサバイバル要素を追加するMod。気温や環境に合わせて、防寒・暑さ対策や水分補給を考える必要がある。",
+    "detail": "【できること】気温や環境に応じた体温管理、水分補給など、通常の満腹度以外の生存管理が追加されます。防寒・暑さ対策として装備や行動場所を考える必要があります。\n【魅力】食料を持つだけではなく、気候や装備も考えながら冒険するサバイバルになります。"
+  },
+  {
+    "title": "RightClickHarvest",
+    "slug": "right-click-harvest",
+    "tag": "生活・収穫補助",
+    "heading": "対応する作物を右クリックで収穫できるMod。作物によっては収穫と同時に植え直しも行われるため、農作業が手軽になる。",
+    "detail": "【できること】対応する作物を右クリックで収穫できます。作物によっては収穫と同時に再植え付けも行われます。\n【魅力】農場での収穫作業が簡単になり、料理用の食材を集めやすくなります。"
+  },
+  {
+    "title": "Building Gadgets 2",
+    "slug": "building-gadgets-2",
+    "tag": "建築・一括設置",
+    "heading": "指定した範囲にブロックをまとめて配置したり、ブロックを交換したりできるMod。大きな建築物を作るときに便利。",
+    "detail": "【できること】指定した範囲に壁や床などをまとめて設置したり、ブロックをコピー・交換したりできます。\n【魅力】大きな建築物や、整地後の建設を短時間で進められます。"
+  },
+  {
+    "title": "Construction Wand",
+    "slug": "construction-wand",
+    "tag": "建築・一括設置",
+    "heading": "杖を使って、同じ種類のブロックをまとめて設置できるMod。壁や床を作る作業を簡単にできる。",
+    "detail": "【できること】杖を使って、壁や床などに同じ種類のブロックを連続して設置できます。杖の種類や設定によって一度に設置できる範囲が変わります。\n【魅力】大きな壁や床を作る作業を簡単にできます。"
+  },
+  {
+    "title": "Effortless Building",
+    "slug": "effortless-building",
+    "tag": "建築・一括設置",
+    "heading": "ブロックの連続配置や範囲建築を補助するMod。同じ作業を繰り返す建築の手間を減らせる。",
+    "detail": "【できること】向きや範囲を指定してブロックを連続配置し、建築パターンを使って作業できます。\n【魅力】同じ作業を繰り返す建築の手間を減らせます。"
+  },
+  {
+    "title": "Copycats",
+    "slug": "copycats",
+    "tag": "建築・装飾",
+    "heading": "ほかのブロックの見た目を利用した建築表現を追加するMod。建物や機械の細かな部分を、周囲のデザインに合わせて装飾できる。",
+    "detail": "【できること】ほかのブロックのテクスチャを利用した装飾・建築表現ができます。Createの機械建築や建物の細部を、周囲のデザインに合わせられます。\n【魅力】機能ブロックの見た目を建築全体のデザインになじませやすくなります。"
+  },
+  {
+    "title": "Valkyrien Skies + Eureka! Ships!",
+    "slug": "valkyrien-skies",
+    "tag": "移動・乗り物",
+    "heading": "ブロックで作った船や飛行船を、実際に動かして操縦できるようにするMod。自分で建造した乗り物に乗って、海や空を移動できる。",
+    "detail": "【できること】Valkyrien Skiesがブロックで構成された構造物を動く物体として扱う物理システムを提供し、Eurekaでは舵（Ship Helm）などを使って船や飛行船を組み立てて操縦できます。\n【魅力】木材や装飾ブロックで建てたものを、その場に固定せず乗り物として海や空へ移動させられます。"
+  },
+  {
+    "title": "Sophisticated Backpacks",
+    "slug": "sophisticated-backpacks",
+    "tag": "収納・バックパック",
+    "heading": "大容量のバックパックを追加するMod。アップグレードを取り付けることで、アイテムの回収や整理などの機能を追加できる。",
+    "detail": "【できること】大容量の追加インベントリを持ち歩けます。アップグレードを取り付けることで、アイテム回収・整理・供給などを補助できます。\n【魅力】採掘や長距離探索で持ち物がいっぱいになりにくく、バックパックを用途に合わせて強化できます。"
+  },
+  {
+    "title": "Storage Drawers",
+    "slug": "storage-drawers",
+    "tag": "収納・アイテム保管",
+    "heading": "同じ種類のアイテムを大量に保管できる収納ブロックを追加するMod。丸石や木材など、数が増えやすい素材の整理に向いている。",
+    "detail": "【できること】丸太・石・鉱石など、数が増えやすい同種の素材を種類ごとに整理し、引き出し単位で大量に保管できます。\n【魅力】素材倉庫を見やすく整理でき、工業・建築拠点に向いています。"
+  },
+  {
+    "title": "Tom's Simple Storage",
+    "slug": "toms-storage",
+    "tag": "収納・一括管理",
+    "heading": "複数のチェストを接続し、一つの画面から中身を検索・取り出しできるMod。拠点の収納をまとめて管理できる。",
+    "detail": "【できること】複数のチェストなどをネットワークで接続し、中身を一つの画面から検索・取り出しできます。\n【魅力】AE2のような複雑なデジタル倉庫を作らなくても、手軽に収納を一元管理できます。"
+  },
+  {
+    "title": "Expanded Storage",
+    "slug": "expanded-storage",
+    "tag": "収納・アイテム保管",
+    "heading": "通常より多くのアイテムを収納できるチェストなどを追加するMod。素材を大量に保管したいときに役立つ。",
+    "detail": "【できること】通常より多くのアイテムを収納できるコンテナを利用できます。\n【魅力】素材を大量に集めるModpackで、チェスト不足を抑えられます。"
+  },
+  {
+    "title": "Waystones",
+    "slug": "waystones",
+    "tag": "移動・ワープ",
+    "heading": "設置・発見した石碑の間をワープできるMod。拠点や村など、登録した場所へ素早く移動できる。",
+    "detail": "【できること】発見・設置したWaystoneを移動先として登録し、登録地点間を移動できます。\n【魅力】拠点や村、探索拠点などへ素早く移動でき、長距離移動の負担を減らせます。"
+  },
+  {
+    "title": "FTB Ultimine",
+    "slug": "ftb-ultimine",
+    "tag": "便利系・採掘補助",
+    "heading": "専用キーを押しながら採掘すると、つながった鉱石やブロックをまとめて破壊できるMod。採掘や伐採などの作業を短縮できる。",
+    "detail": "【できること】専用キーを押しながら採掘すると、同じ種類の隣接ブロックなどをまとめて破壊できます。範囲や対象ブロックは設定・モードによって変わります。\n【魅力】鉱石採掘や木の伐採など、繰り返し作業を短縮できます。\n【注意】一度に大量のブロックを壊すため、ツールの耐久度や落下・崩落に注意してください。"
+  },
+  {
+    "title": "Trading Post",
+    "slug": "trading-post",
+    "tag": "便利系・村人取引",
+    "heading": "周囲の村人との取引をまとめて確認できるMod。村人を一人ずつ探して取引画面を開く手間を減らせる。",
+    "detail": "【できること】一定範囲内の村人の取引を、一つの画面から確認・利用できます。\n【魅力】村人を一人ずつ探して取引画面を開く手間を減らせます。"
+  },
+  {
+    "title": "FTB Quests",
+    "slug": "ftb-quests",
+    "tag": "便利系・クエスト進行",
+    "heading": "ゲーム内にクエストや進行目標を追加するMod。アイテム収集・クラフト・討伐・探索などの目標を確認できる。Modpackで何をすればよいか迷ったときの案内にもなる。",
+    "detail": "【できること】アイテム収集・クラフト・討伐・探索などの目標を確認し、達成すると報酬を受け取れます。Modpack独自の遊び方や進行ルートを案内することもできます。\n【魅力】Modが多くて何から始めればよいか分からない場合でも、次にやることを把握しやすくなります。\n【補足】実際のクエスト内容や報酬は、Modpack制作者が設定したものです。"
+  },
+  {
+    "title": "Voice Chat",
+    "slug": "simple-voice-chat",
+    "tag": "便利系・マルチプレイ",
+    "heading": "ゲーム内でボイスチャットができるようになるMod。近くにいるプレイヤーと、ゲーム内で直接会話できる。",
+    "detail": "【できること】ゲーム内のボイスチャットで、近くのプレイヤーと会話できます。通話方法はサーバーやクライアントの設定に応じて調整できます。\n【魅力】建築・探索・ボス戦などで、チャット入力をせずに仲間と連携できます。"
+  },
+  {
+    "title": "Ping Wheel",
+    "slug": "ping-wheel",
+    "tag": "便利系・マルチプレイ",
+    "heading": "画面上にピンや合図を表示して、仲間に場所や目的を伝えるMod。探索や戦闘中の意思疎通に役立つ。",
+    "detail": "【できること】画面上にピンや合図を表示し、行き先や注目してほしい場所を仲間に共有できます。\n【魅力】ボイスチャットを使わない場合でも、協力プレイで意思疎通しやすくなります。"
+  }
+]
+</script>
+    <script>
+(() => {
+  "use strict";
+  const mods = JSON.parse(document.getElementById("mod-data").textContent);
+  const search = document.getElementById("search");
+  const mainTagSelect = document.getElementById("main-tag-select");
+  const subTagSelect = document.getElementById("sub-tag-select");
+  const list = document.getElementById("mod-list");
+  const count = document.getElementById("result-count");
+  const reset = document.getElementById("reset");
+  const clearSearch = document.getElementById("clear-search");
+
+  // タグデータを「メインジャンル」「サブジャンル」に分解 (例: "収納・バックパック" -> メイン: "収納", サブ: "バックパック")
+  const taxonomy = {};
+  mods.forEach(mod => {
+    const parts = mod.tag.split("・");
+    const main = parts[0] || "その他";
+    const sub = parts[1] || "";
+    if (!taxonomy[main]) {
+      taxonomy[main] = new Set();
+    }
+    if (sub) {
+      taxonomy[main].add(sub);
+    }
+  });
+
+  const mainCategories = Object.keys(taxonomy).sort((a, b) => a.localeCompare(b, "ja"));
+
+  // メインジャンルのプルダウンを初期化
+  mainCategories.forEach(main => {
+    const option = document.createElement("option");
+    option.value = main;
+    option.textContent = main;
+    mainTagSelect.append(option);
+  });
+
+  function updateSubTags(selectedMain, keepSub = "") {
+    subTagSelect.innerHTML = '<option value="">すべてのサブジャンル</option>';
+    if (!selectedMain || !taxonomy[selectedMain] || taxonomy[selectedMain].size === 0) {
+      subTagSelect.disabled = true;
+      return;
+    }
+
+    const subs = [...taxonomy[selectedMain]].sort((a, b) => a.localeCompare(b, "ja"));
+    subs.forEach(sub => {
+      const option = document.createElement("option");
+      option.value = sub;
+      option.textContent = sub;
+      if (sub === keepSub) {
+        option.selected = true;
+      }
+      subTagSelect.append(option);
+    });
+    subTagSelect.disabled = false;
+  }
+
+  const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  })[char]);
+
+  // ---- Modrinthからアイコンを取得 ----
+  const ICON_CACHE_KEY = "mod-field-guide:modrinth-icons:v1";
+  const ICON_TTL = 7 * 24 * 60 * 60 * 1000;
+  const API = "https://api.modrinth.com/v2";
+  const icons = new Map(); // title -> icon_url ("" は「見つからなかった」)
+
+  function loadIconCache() {
+    try {
+      const raw = JSON.parse(localStorage.getItem(ICON_CACHE_KEY) || "null");
+      if (raw && Date.now() - raw.t < ICON_TTL) {
+        Object.entries(raw.d).forEach(([title, url]) => icons.set(title, url));
+      }
+    } catch (e) { /* 保存領域が使えない環境では無視 */ }
+  }
+  function saveIconCache() {
+    try {
+      localStorage.setItem(ICON_CACHE_KEY, JSON.stringify({ t: Date.now(), d: Object.fromEntries(icons) }));
+    } catch (e) { /* 無視 */ }
+  }
+
+  function fillThumb(el) {
+    const mod = mods[Number(el.dataset.i)];
+    const url = icons.get(mod.title);
+    const initial = [...mod.title.trim()][0]?.toUpperCase() || "?";
+    if (!url) {
+      el.textContent = initial;
+      return;
+    }
+    if (el.querySelector("img")?.getAttribute("src") === url) return;
+    const img = document.createElement("img");
+    img.src = url;
+    img.alt = "";
+    img.width = 96;
+    img.height = 96;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.addEventListener("error", () => { el.textContent = initial; });
+    el.replaceChildren(img);
+  }
+  const applyIcons = () => list.querySelectorAll(".mod-thumb").forEach(fillThumb);
+
+  async function searchIcon(mod) {
+    const q = (mod.query || mod.title.replace(/[（(].*?[）)]/g, "").replace(/シリーズ$/, "")).trim();
+    const facets = encodeURIComponent('[["project_type:mod"]]');
+    const res = await fetch(`${API}/search?query=${encodeURIComponent(q)}&limit=1&facets=${facets}`);
+    if (!res.ok) throw new Error("search failed");
+    const data = await res.json();
+    return data.hits?.[0]?.icon_url || "";
+  }
+
+  async function fetchIcons() {
+    const pending = mods.filter(mod => !icons.has(mod.title));
+    if (!pending.length) return;
+
+    // 1) スラッグが分かっているものは1回のリクエストでまとめて取得
+    const bySlug = new Map();
+    const slugs = [...new Set(pending.map(mod => mod.slug).filter(Boolean))];
+    if (slugs.length) {
+      try {
+        const res = await fetch(`${API}/projects?ids=${encodeURIComponent(JSON.stringify(slugs))}`);
+        if (!res.ok) throw new Error("projects failed");
+        (await res.json()).forEach(p => bySlug.set(String(p.slug).toLowerCase(), p.icon_url || ""));
+      } catch (e) {
+        return; // ネットワーク不可: プレースホルダーのまま(次回再試行)
+      }
+    }
+    pending.forEach(mod => {
+      const hit = mod.slug && bySlug.get(mod.slug.toLowerCase());
+      if (hit) icons.set(mod.title, hit);
+    });
+    applyIcons();
+    saveIconCache();
+
+    // 2) 見つからなかったもの/スラッグ未設定のものは検索で補完
+    for (const mod of pending.filter(mod => !icons.has(mod.title))) {
+      try {
+        icons.set(mod.title, await searchIcon(mod));
+        applyIcons();
+      } catch (e) { break; }
+    }
+    saveIconCache();
+  }
+
+  function render() {
+    const query = search.value.trim().toLocaleLowerCase("ja");
+    const selectedMain = mainTagSelect.value;
+    const selectedSub = subTagSelect.value;
+
+    const filtered = mods.filter(mod => {
+      const haystack = [mod.title, mod.tag, mod.heading, mod.detail].join(" ").toLocaleLowerCase("ja");
+      const parts = mod.tag.split("・");
+      const modMain = parts[0] || "";
+      const modSub = parts[1] || "";
+
+      const matchQuery = !query || haystack.includes(query);
+      const matchMain = !selectedMain || modMain === selectedMain;
+      const matchSub = !selectedSub || modSub === selectedSub;
+
+      return matchQuery && matchMain && matchSub;
+    });
+
+    count.textContent = `${filtered.length} / ${mods.length} 件を表示`;
+
+    if (!filtered.length) {
+      list.innerHTML = '<div class="empty">該当するModが見つかりませんでした。検索語やジャンルを変更してください。</div>';
+      return;
+    }
+
+    list.innerHTML = filtered.map(mod => {
+      const index = mods.indexOf(mod) + 1;
+      const paragraphs = mod.detail.split(/\n+/).filter(Boolean).map(line => {
+        const match = line.match(/^【([^】]+)】(.*)$/);
+        if (match) return `<p><strong>${escapeHTML(match[1])}</strong>${escapeHTML(match[2])}</p>`;
+        return `<p>${escapeHTML(line)}</p>`;
+      }).join("");
+      return `
+        <article class="mod-row">
+          <div class="mod-main">
+            <div class="mod-topline">
+              <span class="mod-index">${String(index).padStart(2,"0")}</span>
+              <span class="mod-tag">${escapeHTML(mod.tag)}</span>
+            </div>
+            <h3>${escapeHTML(mod.title)}</h3>
+            <p class="summary">${escapeHTML(mod.heading)}</p>
+            <details>
+              <summary>詳しく見る</summary>
+              <div class="mod-detail">${paragraphs}</div>
+            </details>
+          </div>
+          <div class="mod-thumb" data-i="${index - 1}" aria-hidden="true"></div>
+        </article>`;
+    }).join("");
+    list.querySelectorAll(".mod-thumb").forEach(fillThumb);
+  }
+
+  mainTagSelect.addEventListener("change", () => {
+    const currentMain = mainTagSelect.value;
+    updateSubTags(currentMain);
+    render();
+  });
+
+  subTagSelect.addEventListener("change", render);
+  search.addEventListener("input", render);
+
+  reset.addEventListener("click", () => {
+    search.value = "";
+    mainTagSelect.value = "";
+    updateSubTags("");
+    render();
+    search.focus();
+  });
+
+  clearSearch.addEventListener("click", () => {
+    search.value = "";
+    render();
+    search.focus();
+  });
+
+  loadIconCache();
+  render();
+  fetchIcons();
+})();
+</script>
+  </body>
+</html>
